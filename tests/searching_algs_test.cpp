@@ -6,19 +6,21 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 void run_tests() {
-    std::cout << "Running Tests..." << std::endl;
-    std::vector<int> vector = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    cout << "Running Tests..." << endl;
+    vector<int> vector = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     int passed_tests = 0;
     int failed_tests = 0;
 
-    auto check_test = [&](bool condition, const std::string& test_name) {
+    auto check_test = [&](bool condition, const string& test_name) {
         if (condition) {
-            std::cout << "[PASSED] " << test_name << std::endl;
+            cout << "[PASSED] " << test_name << endl;
             passed_tests++;
         } else {
-            std::cout << "[FAILED] " << test_name << std::endl;
+            cout << "[FAILED] " << test_name << endl;
             failed_tests++;
         }
     };
@@ -43,14 +45,14 @@ void run_tests() {
     check_test(jump_search(vector, 3) == 2, "Jump Search: Find 3");
     check_test(jump_search(vector, 15) == -1, "Jump Search: Find 15");
 
-    std::cout << "\nSummary:" << std::endl;
-    std::cout << "Passed tests: " << passed_tests << std::endl;
-    std::cout << "Failed tests: " << failed_tests << std::endl;
+    cout << "\nSummary:" << endl;
+    cout << "Passed tests: " << passed_tests << endl;
+    cout << "Failed tests: " << failed_tests << endl;
 
     if (failed_tests == 0) {
-        std::cout << "All tests passed." << std::endl;
+        cout << "All tests passed." << endl;
     } else {
-        std::cout << "Some tests failed. Please check the output above." << std::endl;
+        cout << "Some tests failed. Please check the output above." << endl;
     }
 }
 

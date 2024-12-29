@@ -6,10 +6,12 @@
 #include <vector>
 #include "math.h"
 
+using namespace std;
+
 int getMinimum(int x, int y);
 
 // Speed O(n)
-int linear_search(std::vector<int> &v, int target) {
+int linear_search(vector<int> &v, int target) {
     for (size_t i = 0; i < v.size(); i++) {
         if (v[i] == target) {
             return i;
@@ -20,7 +22,7 @@ int linear_search(std::vector<int> &v, int target) {
 }
 
 // Speed O(log n)
-int binary_search(std::vector<int> &v, int target) {
+int binary_search(vector<int> &v, int target) {
     size_t left = 0;
     size_t right = v.size() - 1;
 
@@ -40,7 +42,7 @@ int binary_search(std::vector<int> &v, int target) {
 }
 
 // Speed O(log[log n])
-int interpolation_search(std::vector<int> &v, int target) {
+int interpolation_search(vector<int> &v, int target) {
     int mid;
     int left = 0;
     int right = v.size() - 1;
@@ -73,7 +75,7 @@ int interpolation_search(std::vector<int> &v, int target) {
 }
 
 // Speed O(log n)
-int fibonacci_search(std::vector<int> &v, int target) {
+int fibonacci_search(vector<int> &v, int target) {
     // Number (m - 2)
     int fibMm2 = 0;
     // Number (m - 1)
@@ -114,13 +116,13 @@ int fibonacci_search(std::vector<int> &v, int target) {
 }
 
 // Speed O(√n)
-int jump_search(std::vector<int> &v, int target) {
+int jump_search(vector<int> &v, int target) {
     int len = v.size();
 
     int step = sqrt(len);
 
     int prev = 0;
-    while (v[std::min(step, len) - 1] < target) {
+    while (v[min(step, len) - 1] < target) {
         prev = step;
         step += sqrt(len);
 
@@ -132,7 +134,7 @@ int jump_search(std::vector<int> &v, int target) {
     while (v[prev] < target) {
         prev++;
 
-        if (prev == std::min(step, len)) {
+        if (prev == min(step, len)) {
             return -1;
         }
     }

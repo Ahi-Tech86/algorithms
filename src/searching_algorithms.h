@@ -3,10 +3,12 @@
 
 #include <vector>
 
-int jump_search(std::vector<int>& v, int target);
-int linear_search(std::vector<int>& v, int target);
-int binary_search(std::vector<int>& v, int target);
-int fibonacci_search(std::vector<int>& v, int target);
-int interpolation_search(std::vector<int>& v, int target);
+using namespace std;
+
+int jump_search(vector<int>& v, int target);
+int linear_search(vector<int>& v, int target);
+int binary_search(vector<int>& v, int target);
+int fibonacci_search(vector<int>& v, int target);
+int interpolation_search(vector<int>& v, int target);
 
 #endif

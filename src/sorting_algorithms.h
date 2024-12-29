@@ -3,12 +3,14 @@
 
 #include <vector>
 
-void bubble_sort(std::vector<int>& v);
-void insertion_sort(std::vector<int>& v);
-void selection_sort(std::vector<int>& v);
-std::vector<int> quick_sort(std::vector<int>& v);
-std::vector<int> merge_sort(std::vector<int>& v);
-void heap_sort(std::vector<int>& v);
-void print_vector(const std::vector<int> &v);
+using namespace std;
+
+void bubble_sort(vector<int>& v);
+void insertion_sort(vector<int>& v);
+void selection_sort(vector<int>& v);
+vector<int> quick_sort(vector<int>& v);
+vector<int> merge_sort(vector<int>& v);
+void heap_sort(vector<int>& v);
+void print_vector(const vector<int> &v);
 
 #endif

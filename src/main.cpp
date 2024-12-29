@@ -3,16 +3,18 @@
 #include <iostream>
 #include <vector>
 
-int main() {
-    std::vector<int> vector = {10, 7, 4, 1, 9, 6, 3, 8, 5, 2};
+using namespace std;
 
-    std::cout << "Before sorting:" << std::endl;
+int main() {
+    vector<int> vector = {10, 7, 4, 1, 9, 6, 3, 8, 5, 2};
+
+    cout << "Before sorting:" << endl;
     print_vector(vector);
 
     heap_sort(vector);
 
-    std::cout << "After sorting:" << std::endl;
+    cout << "After sorting:" << endl;
     print_vector(vector);
 
-    std::cout << fibonacci_search(vector, 9) << std::endl;
+    cout << fibonacci_search(vector, 9) << endl;
 }
