@@ -1,4 +1,4 @@
-#include "searching_algorithms.h"
+#include "../../include/algorithms/searching_algorithms.h"
 #include <algorithm>
 #include <cmath>
 #include <cstddef>

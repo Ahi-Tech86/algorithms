@@ -1,4 +1,4 @@
-#include "../src/sorting_algorithms.h"
+#include "../include/algorithms/sorting_algorithms.h"
 #include <algorithm>
 #include <stdexcept>
 #include "assert.h"

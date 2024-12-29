@@ -1,4 +1,4 @@
-#include "../src/searching_algorithms.h"
+#include "../include/algorithms/searching_algorithms.h"
 #include <stdexcept>
 #include "assert.h"
 #include <iostream>

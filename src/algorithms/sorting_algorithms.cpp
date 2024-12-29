@@ -1,4 +1,4 @@
-#include "sorting_algorithms.h"
+#include "../../include/algorithms/sorting_algorithms.h"
 #include <cstddef>
 #include <iostream>
 #include <random>
