@@ -37,63 +37,67 @@ WeightedGraph init_weighted_graph() {
     return g;
 }
 
+void check_test(bool condition, const string& test_name, int& passed_tests, int& failed_tests) {
+    if (condition) {
+        cout << "[PASSED] " << test_name << endl;
+        passed_tests++;
+    } else {
+        cout << "[FAILED] " << test_name << endl;
+        failed_tests++;
+    }
+}
+
+void dijkstra_test(int& passed_tests, int& failed_tests) {
+    WeightedGraph graph = init_weighted_graph();
+    vector<int> expected_path = {0, 2, 5};
+    int expected_path_length = 50;
+    int start_vertex = 0;
+    int goal_vertex = 5;
+
+    auto result = dijkstra(graph.getAdjList(), start_vertex, goal_vertex);
+    vector<int> path = result.first;
+    int path_length = result.second;
+    check_test(path == expected_path, "Dijkstra algorithm test: checking path", passed_tests, failed_tests);
+    check_test(path_length == expected_path_length, "Dijkstra algorithm test: checking shortest path length", passed_tests, failed_tests);
+}
+
+void bfs_test(int& passed_tests, int& failed_tests) {
+    Graph graph = init_graph();
+    vector<int> expected_path = {0, 1, 2, 3, 4};
+    int expected_path_length = 4;
+    int start_vertex = 0;
+    int goal_vertex = 4;
+
+    auto result = bfs(graph.getAdjList(), start_vertex, goal_vertex);
+    vector<int> path = result.first;
+    int path_length = result.second;
+    check_test(path == expected_path, "BFS algorithm test: checking path", passed_tests, failed_tests);
+    check_test(path_length == expected_path_length, "BFS algorithm test: checking shortest path length", passed_tests, failed_tests);
+}
+
+void dfs_test(int& passed_tests, int& failed_tests) {
+    Graph graph = init_graph();
+    vector<int> expected_path = {0, 1, 2, 3, 4};
+    int expected_path_length = 4;
+    int start_vertex = 0;
+    int goal_vertex = 4;
+
+    auto result = dfs(graph.getAdjList(), start_vertex, goal_vertex);
+    vector<int> path = result.first;
+    int path_length = result.second;
+    check_test(path == expected_path, "DFS algorithm test: checking path", passed_tests, failed_tests);
+    check_test(path_length == expected_path_length, "DFS algorithm test: checking shortest path length", passed_tests, failed_tests);
+}
+
 void run_tests() {
     cout << "Running Tests..." << endl;
-
-    // For Dijkstra
-    WeightedGraph graph_for_dijkstra = init_weighted_graph();
-    vector<int> expected_path_for_dijkstra = {0, 2, 5};
-    int expected_path_length_for_dijkstra = 50;
-    int start_vertex_for_dijkstra = 0;
-    int goal_vertex_for_dijkstra = 5;
-
-    // For BFS
-    Graph graph_for_bfs = init_graph();
-    vector<int> expected_path_for_bfs = {0, 1, 2, 3, 4};
-    int expected_path_length_for_bfs = 4;
-    int start_vertex_for_bfs = 0;
-    int goal_vertex_for_bfs = 4;
-
-    // For DFS
-    Graph graph_for_dfs = init_graph();
-    vector<int> expected_path_for_dfs = {0, 1, 2, 3, 4};
-    int expected_path_length_for_dfs = 4;
-    int start_vertex_for_dfs = 0;
-    int goal_vertex_for_dfs = 4;
 
     int passed_tests = 0;
     int failed_tests = 0;
 
-    auto check_test = [&](bool condition, const string& test_name) {
-        if (condition) {
-            cout << "[PASSED] " << test_name << endl;
-            passed_tests++;
-        } else {
-            cout << "[FAILED] " << test_name << endl;
-            failed_tests++;
-        }
-    };
-
-    // Dijkstra algorithm test
-    auto result1 = dijkstra(graph_for_dijkstra.getAdjList(), start_vertex_for_dijkstra, goal_vertex_for_dijkstra);
-    vector<int> path1 = result1.first;
-    int length1 = result1.second;
-    check_test(path1 == expected_path_for_dijkstra, "Dijkstra algorithm test: checking path");
-    check_test(length1 == expected_path_length_for_dijkstra, "Dijkstra algorithm test: checking shortest path length");
-
-    // BFS algorithm test
-    auto result2 = bfs(graph_for_bfs.getAdjList(), start_vertex_for_bfs, goal_vertex_for_bfs);
-    vector<int> path2 = result2.first;
-    int length2 = result2.second;
-    check_test(path2 == expected_path_for_bfs, "BFS algorithm test: checking path");
-    check_test(length2 == expected_path_length_for_bfs, "BFS algorithm test: checking shortest path length");
-
-    // DFS algorithm test
-    auto result3 = bfs(graph_for_dfs.getAdjList(), start_vertex_for_dfs, goal_vertex_for_dfs);
-    vector<int> path3 = result3.first;
-    int length3 = result3.second;
-    check_test(path3 == expected_path_for_dfs, "DFS algorithm test: checking path");
-    check_test(length3 == expected_path_length_for_dfs, "DFS algorithm test: checking shortest path length");
+    bfs_test(passed_tests, failed_tests);
+    dfs_test(passed_tests, failed_tests);
+    dijkstra_test(passed_tests, failed_tests);
 
     cout << "\nSummary:" << endl;
     cout << "Passed tests: " << passed_tests << endl;

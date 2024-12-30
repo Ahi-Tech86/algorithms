@@ -1,4 +1,4 @@
-#include "../../include/structures/weightedGraph.h"
+#include "../../include/structs/weightedGraph.h"
 #include <ostream>
 #include <vector>
 

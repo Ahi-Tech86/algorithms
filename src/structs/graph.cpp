@@ -1,4 +1,4 @@
-#include "../../include/structures/graph.h"
+#include "../../include/structs/graph.h"
 #include <vector>
 
 using namespace std;
