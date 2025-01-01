@@ -37,6 +37,17 @@ WeightedGraph init_weighted_graph() {
     return g;
 }
 
+WeightedGraph init_weighted_graph_for_bellman_ford() {
+    WeightedGraph graph(5);
+    graph.addEdge(0, 1, 1);
+    graph.addEdge(0, 2, 4);
+    graph.addEdge(1, 2, 2);
+    graph.addEdge(1, 3, 6);
+    graph.addEdge(2, 3, 3);
+
+    return graph;
+}
+
 void check_test(bool condition, const string& test_name, int& passed_tests, int& failed_tests) {
     if (condition) {
         cout << "[PASSED] " << test_name << endl;
@@ -89,6 +100,28 @@ void dfs_test(int& passed_tests, int& failed_tests) {
     check_test(path_length == expected_path_length, "DFS algorithm test: checking shortest path length", passed_tests, failed_tests);
 }
 
+void bellman_ford_test(int& passed_tests, int& failed_tests) {
+    WeightedGraph graph = init_weighted_graph_for_bellman_ford();
+    vector<int> expected_path = {0, 1, 2, 3};
+    int expected_path_length = 6;
+    int start_vertex = 0;
+    int goal_vertex = 3;
+
+    auto result = bellman_ford(graph.getAdjList(), start_vertex, goal_vertex);
+    vector<int> path = result.first;
+    int path_length = result.second;
+    check_test(
+        path == expected_path,
+        "Bellman-Ford algorithm test: checking path",
+        passed_tests, failed_tests
+    );
+    check_test(
+        path_length == expected_path_length, 
+        "Bellman-Ford algorithm test: checking shortest path length",
+        passed_tests, failed_tests
+    );
+}
+
 void run_tests() {
     cout << "Running Tests..." << endl;
 
@@ -98,6 +131,7 @@ void run_tests() {
     bfs_test(passed_tests, failed_tests);
     dfs_test(passed_tests, failed_tests);
     dijkstra_test(passed_tests, failed_tests);
+    bellman_ford_test(passed_tests, failed_tests);
 
     cout << "\nSummary:" << endl;
     cout << "Passed tests: " << passed_tests << endl;

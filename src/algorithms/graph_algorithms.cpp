@@ -123,6 +123,54 @@ pair<vector<int>, int> dijkstra(vector<vector<pair<int, int>>> adjList, int star
     return {path, dist[goalVertex]};
 }
 
+pair<vector<int>, int> bellman_ford(vector<vector<pair<int, int>>> adjList, int start_vertex, int goal_vertex) {
+    int V = adjList.size();
+    vector<int> parent(V, -1);
+    vector<int> distance(V, numeric_limits<int>::max());
+    
+    distance[start_vertex] = 0;
+
+    for (int i = 1; i <= V - 1; i++) {
+        for (int u = 0; u < V; u++) {
+            for (const auto& edge : adjList[u]) {
+                int v = edge.first;
+                int weight = edge.second;
+
+                if (distance[u] != numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+                    distance[v] = distance[u] + weight;
+                    parent[v] = u;
+                }
+            }
+        }
+    }
+
+    for (int u = 0; u < V; u++) {
+        for (const auto& edge : adjList[u]) {
+            int v = edge.first;
+            int weight = edge.second;
+
+            if (distance[u] != numeric_limits<int>::max() && distance[u] + weight < distance[v]) {
+                throw runtime_error("Graph contains a negative weight cycle");
+            }
+        }
+    }
+
+    vector<int> path;
+    for (int v = goal_vertex; v != -1; v = parent[v]) {
+        path.push_back(v);
+    }
+
+    reverse(path.begin(), path.end());
+
+    if (path.front() != start_vertex) {
+        throw runtime_error("No path from start to goal vertex");
+    }
+
+    int path_length = distance[goal_vertex];
+    
+    return {path, path_length};
+}
+
 pair<vector<int>, int> getPath(vector<bool> visited, vector<int> parent, int goalVertex) {
     vector<int> path;
     int length = 0;
