@@ -1,4 +1,6 @@
 #include "../../include/algorithms/graph_algorithms.h"
+#include <unordered_map>
+#include <functional>
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -169,6 +171,59 @@ pair<vector<int>, int> bellman_ford(vector<vector<pair<int, int>>> adjList, int 
     int path_length = distance[goal_vertex];
     
     return {path, path_length};
+}
+
+pair<vector<int>, int> a_star(vector<vector<pair<int, int>>> adjList, int start_vertex, int goal_vertex) {
+    int V = adjList.size();
+
+    // first cost, second vertex
+    using P = pair<int, int>;
+    priority_queue<P, vector<P>, greater<P>> pq;
+    unordered_map<int, int> cost;
+    unordered_map<int, int> cameFrom;
+
+    auto heuristic = [](int vertex, int goal) {
+        return abs(vertex - goal);
+    };
+
+    for (int i = 0; i < V; i++) {
+        cost[i] = numeric_limits<int>::max();
+    }
+    cost[start_vertex] = 0;
+    pq.emplace(0, start_vertex);
+
+    while (!pq.empty()) {
+        int current_vertex = pq.top().second;
+        int current_cost = pq.top().first;
+        pq.pop();
+
+        if (goal_vertex == current_vertex) {
+            vector<int> path;
+            int path_Length = 0;
+
+            for (int at = goal_vertex; at != start_vertex; at = cameFrom[at]) {
+                path.push_back(at);
+                path_Length += cost[at] - cost[cameFrom[at]];
+            }
+            path.push_back(start_vertex);
+            reverse(path.begin(), path.end());
+            return {path, path_Length};
+        }
+        
+        for (const auto& edge : adjList[current_vertex]) {
+            int next_vertex = edge.first;
+            int edge_cost = edge.second;
+            int new_cost = current_cost + edge_cost;
+
+            if (new_cost < cost[next_vertex]) {
+                cost[next_vertex] = new_cost;
+                cameFrom[next_vertex] = current_vertex;
+                pq.emplace(new_cost + heuristic(next_vertex, goal_vertex), next_vertex);
+            }
+        }
+    }
+
+    return {{}, -1};
 }
 
 pair<vector<int>, int> getPath(vector<bool> visited, vector<int> parent, int goalVertex) {

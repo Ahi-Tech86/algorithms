@@ -122,6 +122,20 @@ void bellman_ford_test(int& passed_tests, int& failed_tests) {
     );
 }
 
+void a_star_test(int& passed_tests, int& failed_tests) {
+    WeightedGraph graph = init_weighted_graph();
+    vector<int> expected_path = {0, 2, 5};
+    int expected_failed_path_length = -1;
+    int start_vertex = 0;
+    int goal_vertex = 5;
+
+    auto result = a_star(graph.getAdjList(), start_vertex, goal_vertex);
+    vector<int> path = result.first;
+    int path_length = result.second;
+    check_test(path == expected_path, "A* algorithm test: checking path", passed_tests, failed_tests);
+    check_test(path_length != expected_failed_path_length, "A* algorithm test: checking that algorithm can find path", passed_tests, failed_tests);
+}
+
 void run_tests() {
     cout << "Running Tests..." << endl;
 
@@ -130,6 +144,7 @@ void run_tests() {
 
     bfs_test(passed_tests, failed_tests);
     dfs_test(passed_tests, failed_tests);
+    a_star_test(passed_tests, failed_tests);
     dijkstra_test(passed_tests, failed_tests);
     bellman_ford_test(passed_tests, failed_tests);
 
